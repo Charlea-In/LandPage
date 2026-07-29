@@ -103,16 +103,17 @@
     .nav-links a:hover { color: var(--lilac); }
     .nav-links a:hover::after { width: 100%; }
     .nav-cta {
-      background: var(--lilac);
-      color: var(--white); font-weight: 600; font-size: .85rem;
+      background: var(--white);
+      color: var(--ink); font-weight: 600; font-size: .85rem;
       padding: .6rem 1.5rem; border-radius: 999px;
       text-decoration: none; letter-spacing: .01em;
       transition: var(--transition);
-      border: none; cursor: pointer;
-      box-shadow: 0 2px 10px rgba(139,111,188,.25);
+      border: 1.5px solid var(--beige); cursor: pointer;
     }
-    .nav-cta:hover { 
-      background: var(--lilac-dk);
+    .nav-cta:hover, .nav-cta:active { 
+      background: var(--lilac-lt);
+      color: var(--ink);
+      border-color: var(--lilac);
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(139,111,188,.35);
     }
@@ -353,6 +354,12 @@
       transition: var(--transition);
       cursor: pointer;
       position: relative;
+    }
+    .card-full {
+      grid-column: 1 / -1;
+      max-width: 420px;
+      justify-self: center;
+      width: 100%;
     }
     .card:hover {
       transform: translateY(-8px);
@@ -693,6 +700,13 @@
     .social-icon-link.social-tt:hover {
       border-color: #69C9D0;
       box-shadow: 0 8px 24px rgba(105,201,208,.2);
+    }
+    .social-icon-link.social-fb:hover svg {
+      fill: #1877F2;
+    }
+    .social-icon-link.social-fb:hover {
+      border-color: #1877F2;
+      box-shadow: 0 8px 24px rgba(24,119,242,.2);
     }
     .social-icon-link span {
       font-size: .88rem; font-weight: 600; letter-spacing: .01em;
@@ -1146,28 +1160,12 @@
       <p class="section-sub">Cada plantilla es un punto de partida. La personalizamos completamente para ti.</p>
     </div>
     <div class="cards-grid">
-      <div class="card reveal" onclick="showNotification('💍 Plantilla: Amor Eterno — ¡Perfecta para bodas!')">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#fdf6ec,#f5e8d0);">💍</div>
-        <div class="card-body">
-          <p class="card-tag">Boda</p>
-          <p class="card-title">Amor Eterno</p>
-          <p class="card-desc">Diseño floral con cuenta regresiva, galería de fotos y confirmación de asistencia. <span class="hover-arrow">→</span></p>
-        </div>
-      </div>
       <div class="card reveal" onclick="showNotification('👑 Plantilla: Quinceañera Real — ¡Brilla como nunca!')">
         <div class="card-thumb" style="background:linear-gradient(135deg,#fdf0f8,#f5d9ee);">👑</div>
         <div class="card-body">
           <p class="card-tag">XV Años</p>
           <p class="card-title">Quinceañera Real</p>
           <p class="card-desc">Detalles dorados, animaciones suaves y espacio para fotos de la festejada. <span class="hover-arrow">→</span></p>
-        </div>
-      </div>
-      <div class="card reveal" onclick="showNotification('🎉 Plantilla: Gran Celebración — ¡Fiesta garantizada!')">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#eef6ff,#d8ecff);">🎉</div>
-        <div class="card-body">
-          <p class="card-tag">Cumpleaños</p>
-          <p class="card-title">Gran Celebración</p>
-          <p class="card-desc">Colores festivos, música de fondo y botón de confirmación para los invitados. <span class="hover-arrow">→</span></p>
         </div>
       </div>
       <div class="card reveal" onclick="showNotification('🕊️ Plantilla: Luz y Fe — Un momento espiritual único')">
@@ -1186,7 +1184,7 @@
           <p class="card-desc">Diseño limpio y profesional, ideal para lanzamientos, conferencias y reuniones. <span class="hover-arrow">→</span></p>
         </div>
       </div>
-      <div class="card reveal" style="border-color:var(--lilac); background:var(--lilac-lt);" onclick="showNotification('✨ ¡Diseño exclusivo! Cuéntanos tu idea y la hacemos realidad')">
+      <div class="card card-full reveal" style="border-color:var(--lilac); background:var(--lilac-lt);" onclick="startCustomIdea()">
         <div class="card-thumb" style="background:linear-gradient(135deg,#eef4f0,#d4e6d9);">✨</div>
         <div class="card-body">
           <p class="card-tag" style="color:var(--lilac);">Diseño exclusivo</p>
@@ -1493,6 +1491,14 @@
         <span>@charlea_in</span>
       </a>
 
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/share/1SowYFtpYW/" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon-link social-fb">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+        <span>Charléa</span>
+      </a>
+
     </div>
   </div>
 </footer>
@@ -1678,6 +1684,15 @@ function closeNotification() {
 
 /* ── SELECTED PLAN STATE ── */
 window._selectedPlan = null;
+window._customIdea = false;
+
+function startCustomIdea() {
+  window._customIdea = true;
+  showNotification('✨ Selecciona un plan y te contactamos para tu idea personalizada');
+  setTimeout(() => {
+    document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+  }, 500);
+}
 
 function selectPlan(plan) {
   window._selectedPlan = plan;
@@ -1698,19 +1713,28 @@ function selectPlan(plan) {
   if (hint && name) { name.textContent = plan; hint.style.display = 'block'; }
 
   // Mostrar notificación
-  showNotification(`✅ Plan ${plan} seleccionado — ¡ya puedes escribirnos!`);
-
-  // Scroll al CTA
-  setTimeout(() => {
-    document.getElementById('cta').scrollIntoView({ behavior: 'smooth' });
-  }, 500);
+  if (window._customIdea) {
+    showNotification(`✅ Plan ${plan} seleccionado — ahora escríbenos por WhatsApp!`);
+    setTimeout(() => {
+      document.getElementById('cta').scrollIntoView({ behavior: 'smooth' });
+    }, 500);
+  } else {
+    showNotification(`✅ Plan ${plan} seleccionado — ¡ya puedes escribirnos!`);
+    setTimeout(() => {
+      document.getElementById('cta').scrollIntoView({ behavior: 'smooth' });
+    }, 500);
+  }
 }
 
 /* ── WHATSAPP HANDLER ── */
 function handleWhatsApp(plan) {
   const phone = '50374627692'; // ← CAMBIA ESTE NÚMERO
   let message;
-  if (plan && plan !== 'CTA final') {
+  if (window._customIdea) {
+    const p = plan || window._selectedPlan || 'Sin plan';
+    message = `Hola tengo una idea fuera de su catalogo, con el plan *${p}*, Quiero mas informacion!`;
+    window._customIdea = false;
+  } else if (plan && plan !== 'CTA final') {
     message = `¡Hola! 👋 Estoy interesado/a en el plan *${plan}* de invitaciones digitales. ¿Podrían darme más información?`;
   } else if (window._selectedPlan) {
     message = `¡Hola! 👋 Estoy interesado/a en el plan *${window._selectedPlan}* de invitaciones digitales. ¿Podrían darme más información?`;
