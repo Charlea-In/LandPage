@@ -117,6 +117,27 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(139,111,188,.35);
     }
+    .nav-cta-ghost {
+      position: relative;
+      background: #C9A96E;
+      color: var(--ink);
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .85rem;
+      padding: .5rem 1.2rem;
+      box-shadow: 0 2px 10px rgba(201,169,110,.3);
+    }
+    .nav-cta-ghost::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 100%; height: 2px; background: var(--lilac);
+    }
+    .nav-cta-ghost:hover {
+      background: #C9A96E;
+      color: var(--ink);
+      box-shadow: 0 4px 16px rgba(201,169,110,.35);
+      transform: translateY(-2px);
+    }
 
     /* ── HAMBURGER ── */
     .hamburger {
@@ -150,6 +171,12 @@
       transition: var(--transition);
     }
     .mobile-menu a:hover { color: var(--lilac); padding-left: 8px; }
+    .mobile-menu a.weddings-mobile {
+      color: var(--ink);
+      font-weight: 600;
+      border-bottom: 1px solid #C9A96E;
+    }
+    .mobile-menu a.weddings-mobile:hover { color: var(--lilac); }
     .mobile-menu .nav-cta {
       display: inline-block; margin-top: 1.5rem;
     }
@@ -387,6 +414,30 @@
       transition: var(--transition); display: inline-block;
     }
     .card:hover .hover-arrow { opacity: 1; transform: translateX(0); }
+
+    /* ── CHARLÉA WEDDINGS CARD (catálogo) ── */
+    .weddings-card {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(200px, 320px) 1fr;
+      align-items: center;
+      cursor: pointer;
+    }
+    .weddings-thumb {
+      height: 100%; min-height: 200px;
+      overflow: hidden;
+    }
+    .weddings-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: var(--transition);
+    }
+    .weddings-card:hover .weddings-thumb img { transform: scale(1.05); }
+    .weddings-body { padding: 1.6rem 1.8rem; }
+    @media (max-width: 700px) {
+      .weddings-card { grid-template-columns: 1fr; }
+      .weddings-thumb { min-height: 170px; }
+    }
 
     /* ── HOW IT WORKS ── */
     #how { background: var(--bg2); }
@@ -1008,6 +1059,7 @@
   <a href="#templates" onclick="closeMenu()">Plantillas</a>
   <a href="#pricing" onclick="closeMenu()">Precios</a>
   <a href="#testimonials" onclick="closeMenu()">Reseñas</a>
+  <a href="https://charlea-in.github.io/LandPage/Charleaweedings/index.html" target="_blank" rel="noopener" onclick="closeMenu()" class="weddings-mobile">Charléa Weddings</a>
   <a href="#cta" class="nav-cta" onclick="closeMenu()">Pedir mi invitación</a>
 </div>
 
@@ -1019,6 +1071,7 @@
     <li><a href="#templates">Plantillas</a></li>
     <li><a href="#pricing">Precios</a></li>
     <li><a href="#testimonials">Reseñas</a></li>
+    <li><a href="https://charlea-in.github.io/LandPage/Charleaweedings/index.html" target="_blank" rel="noopener" class="nav-cta nav-cta-ghost">Charléa Weddings</a></li>
     <li><a href="#cta" class="nav-cta">Pedir mi invitación</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Abrir menú" onclick="toggleMenu()">
@@ -1065,14 +1118,6 @@
         </div>
       </div>
       <div class="template-tabs reveal">
-        <button class="tab-btn" data-template="demo1" onclick="loadTemplate('demo1',this)">
-          <span class="tab-icon">💍</span>
-          <div>
-            <div class="tab-name">Fiesta de Compromiso</div>
-            <div class="tab-desc">Elegante, con animaciones y RSVP</div>
-            <span style="font-size:.6rem;color:var(--lilac);font-weight:600;">★ DEMO REAL</span>
-          </div>
-        </button>
         <button class="tab-btn" data-template="demo2" onclick="loadTemplate('demo2',this)">
           <span class="tab-icon">🎂</span>
           <div>
@@ -1089,29 +1134,9 @@
             <span style="font-size:.6rem;color:var(--lilac);font-weight:600;">★ DEMO REAL</span>
           </div>
         </button>
-        <button class="tab-btn" data-template="demo4" onclick="loadTemplate('demo4',this)">
-          <span class="badge-new">NUEVO</span>
-          <span class="tab-icon">🥂</span>
-          <div>
-            <div class="tab-name">Boda Elegante</div>
-            <div class="tab-desc">Romántica, minimalista y sofisticada</div>
-            <span style="font-size:.6rem;color:var(--lilac);font-weight:600;">★ DEMO REAL</span>
-          </div>
-        </button>
       </div>
       <!-- MÓVIL: links directos a las demos -->
       <div class="demo-links-mobile reveal">
-        <a class="demo-link-btn" href="./demo1/index.html" target="_blank">
-          <div class="demo-link-left">
-            <span class="demo-link-icon">💍</span>
-            <div>
-              <div class="demo-link-name">Fiesta de Compromiso</div>
-              <div class="demo-link-desc">Elegante, con animaciones y RSVP</div>
-              <span class="demo-link-badge">★ DEMO REAL</span>
-            </div>
-          </div>
-          <span class="demo-link-arrow">→</span>
-        </a>
         <a class="demo-link-btn" href="./demo2/index.html" target="_blank">
           <div class="demo-link-left">
             <span class="demo-link-icon">🎂</span>
@@ -1129,18 +1154,6 @@
             <div>
               <div class="demo-link-name">Cumpleaños Infantil</div>
               <div class="demo-link-desc">Sencilla y encantadora para niñas</div>
-              <span class="demo-link-badge">★ DEMO REAL</span>
-            </div>
-          </div>
-          <span class="demo-link-arrow">→</span>
-        </a>
-        <a class="demo-link-btn" href="./demo4/index.html" target="_blank" style="border-color:var(--lilac); position:relative;">
-          <span style="position:absolute;top:-8px;right:-6px;background:var(--lilac);color:white;font-size:.5rem;padding:.15rem .5rem;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;">NUEVO</span>
-          <div class="demo-link-left">
-            <span class="demo-link-icon">🥂</span>
-            <div>
-              <div class="demo-link-name">Boda Elegante</div>
-              <div class="demo-link-desc">Romántica, minimalista y sofisticada</div>
               <span class="demo-link-badge">★ DEMO REAL</span>
             </div>
           </div>
@@ -1192,6 +1205,16 @@
           <p class="card-desc">Creamos desde cero la invitación perfecta para lo que tengas en mente. <span class="hover-arrow">→</span></p>
         </div>
       </div>
+      <a href="https://charlea-in.github.io/LandPage/Charleaweedings/index.html" target="_blank" rel="noopener" class="card weddings-card reveal">
+        <div class="weddings-thumb">
+          <img src="./charleaweedings.jpg" alt="Charléa Weddings" />
+        </div>
+        <div class="card-body weddings-body">
+          <p class="card-tag">Charléa Weddings</p>
+          <p class="card-title">Invitaciones para tu boda</p>
+          <p class="card-desc">Diseños exclusivos y sofisticados para el día más especial de su vida. <span class="hover-arrow">→</span></p>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -1750,10 +1773,8 @@ function handleWhatsApp(plan) {
 
 /* ── TEMPLATES ── */
 const templates = {
-  demo1: './demo1/index.html',
   demo2: './demo2/index.html',
   demo3: './demo3/index.html',
-  demo4: './demo4/index.html',
 };
 
 function loadTemplate(name, btn) {
@@ -1784,7 +1805,7 @@ function loadTemplate(name, btn) {
 
 // ── LOAD INITIAL TEMPLATE ──
 window.addEventListener('load', () => {
-  loadTemplate('demo1', document.querySelector('.tab-btn[data-template="demo1"]'));
+  loadTemplate('demo2', document.querySelector('.tab-btn[data-template="demo2"]'));
   setTimeout(() => {
     showNotification('👋 ¡Bienvenido a Charléa! Estas son demos reales de invitaciones');
   }, 1500);
