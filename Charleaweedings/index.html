@@ -797,6 +797,15 @@
       .process-steps::before { display: none; }
       .pricing-two { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
     }
+    /* Ajustes del sello para móviles */
+    @media (max-width: 768px) {
+      .hero-seal {
+        width: 150vw;
+        right: -70vw;
+        top: 5%;
+        opacity: 0.6;
+      }
+    }
     @media (max-width: 700px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
