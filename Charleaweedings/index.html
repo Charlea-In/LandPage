@@ -172,18 +172,24 @@
         radial-gradient(ellipse 60% 45% at 8% 82%, rgba(212,176,122,.06), transparent 70%);
     }
 
-    /* Sello de cera — derecha del hero, mitad visible, por debajo de las letras */
+    /* Sello de cera — marca de agua, detrás de las letras */
     .hero-seal {
       position: absolute;
-      top: 50%; right: 0;
-      transform: translate(50%, -50%);
-      width: clamp(220px, 28vw, 400px);
+      top: 10%;
+      right: -5%;
+      width: 45vw;
+      max-width: 650px;
       height: auto;
-      z-index: -1;
-      opacity: .95;
-      filter: drop-shadow(0 24px 48px rgba(28,25,32,.14));
+      z-index: 1;
       pointer-events: none;
       user-select: none;
+      opacity: 0.6;
+    }
+
+    /* El texto del hero siempre por encima del sello */
+    .hero-ornament, .hero-eyebrow, #hero h1, .hero-divider, .hero-sub, .hero-btns, .hero-trust {
+      position: relative;
+      z-index: 2;
     }
 
     /* Pétalos flotantes decorativos */
@@ -315,6 +321,7 @@
     #hero .hero-ornament { animation: fadeUp .8s .1s both; }
     #hero .hero-eyebrow  { animation: fadeUp .8s .2s both; }
     #hero h1             { animation: fadeUp .9s .32s both; }
+    #hero .hero-seal     { animation: fadeUp .9s .32s both; }
     #hero .hero-divider  { animation: fadeUp .8s .48s both; }
     #hero .hero-sub      { animation: fadeUp .8s .6s both; }
     #hero .hero-btns     { animation: fadeUp .8s .74s both; }
@@ -802,7 +809,6 @@
       .demos-grid { grid-template-columns: 1fr; }
       h1 { font-size: 2.8rem; }
       .section-wrap { padding: 5rem 6%; }
-      .hero-seal { width: clamp(150px, 38vw, 230px); opacity: .85; }
     }
     @media (max-width: 480px) {
       .hero-btns .btn-primary, .hero-btns .btn-ghost { width: 100%; justify-content: center; }
