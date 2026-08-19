@@ -467,6 +467,22 @@
     .step-title { font-weight: 600; font-size: 1rem; color: var(--ink); }
     .step-desc { font-size: .85rem; color: var(--ink2); line-height: 1.6; }
 
+    .process-note {
+      margin: 3rem auto 0;
+      text-align: center;
+      font-size: .8rem;
+      color: var(--ink2);
+      line-height: 1.7;
+      max-width: 580px;
+    }
+    .process-note::before {
+      content: '';
+      display: block; width: 40px; height: 2px;
+      background: linear-gradient(135deg, var(--lilac), var(--lilac-dk));
+      margin: 0 auto 1.2rem;
+      border-radius: 2px;
+    }
+
     /* ── PRICING ── */
     .pricing-grid {
       display: grid;
@@ -1226,7 +1242,7 @@
   <div class="section-wrap">
     <div class="section-head reveal">
       <span class="section-eyebrow">⚡ Proceso</span>
-      <h2>Listo en <em>48 horas</em></h2>
+      <h2>Listo en <em>48 horas*</em></h2>
       <p class="section-sub">Un proceso simple para que tú solo te preocupes de disfrutar tu evento.</p>
     </div>
     <div class="steps">
@@ -1251,6 +1267,7 @@
         <p class="step-desc">Un link listo para enviar por WhatsApp, Instagram o donde quieras.</p>
       </div>
     </div>
+    <p class="process-note">* La primera versión de tu invitación es entregada en menos de 48 horas después de completar el pago. Ajustes y modificaciones están sujetas a 24 h por modificación o conjunto de modificaciones.</p>
   </div>
 </section>
 
