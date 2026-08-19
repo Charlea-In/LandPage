@@ -183,7 +183,7 @@
       z-index: 1;
       pointer-events: none;
       user-select: none;
-      opacity: 0.6;
+      opacity: 0.4;
     }
 
     /* El texto del hero siempre por encima del sello */
@@ -238,12 +238,12 @@
     h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(3rem, 7vw, 6rem);
-      font-weight: 300; line-height: 1.05; letter-spacing: -.015em;
+      font-weight: 400; line-height: 1.05; letter-spacing: -.015em;
       color: var(--ink); max-width: 840px; margin: 0 auto .4rem;
       text-wrap: balance;
     }
     h1 em {
-      font-style: italic; font-weight: 400;
+      font-style: italic; font-weight: 500;
       background: linear-gradient(120deg, var(--champ-dk), var(--champ) 45%, var(--champ-md));
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent; color: transparent;
@@ -448,18 +448,54 @@
     .invite-preview-date {
       font-size: .78rem; color: var(--ink2); margin-top: .6rem; letter-spacing: .06em;
     }
-    .invite-chips {
-      display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.4rem;
-      position: relative; z-index: 1;
+/* Ticker horizontal — loop infinito de funciones */
+    .ticker-wrapper {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 12px 0;
+      margin-top: 1.4rem;
+      z-index: 1;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     }
-    .invite-chip {
-      font-size: .7rem; font-weight: 600; padding: .4rem .9rem;
-      border-radius: 999px; background: var(--white); color: var(--ink2);
-      border: 1px solid var(--border); letter-spacing: .04em;
-      display: inline-flex; align-items: center; gap: .35rem;
-      transition: var(--tr);
+    .ticker-track {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      width: max-content;
+      animation: scrollLeft 14s linear infinite;
+      will-change: transform;
     }
-    .invite-chip:hover { border-color: var(--champ-md); color: var(--champ-dk); background: var(--champ-lt); }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes scrollLeft {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--ink2);
+      white-space: nowrap;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: background .25s, border-color .25s, color .25s, box-shadow .25s;
+      font-family: inherit;
+      outline: none;
+    }
+    .ticker-btn:hover {
+      background: var(--champ-lt);
+      border-color: var(--champ);
+      color: var(--champ-dk);
+      box-shadow: 0 2px 10px rgba(184,146,74,.22);
+    }
 
     .includes-list { display: flex; flex-direction: column; gap: .9rem; }
     .includes-item {
@@ -583,6 +619,21 @@
     .step-title { font-weight: 600; font-size: .9rem; color: var(--ink); margin-bottom: .4rem; }
     .step-desc { font-size: .8rem; color: var(--ink2); line-height: 1.6; }
 
+    .process-note {
+      margin: 3rem auto 0;
+      text-align: center;
+      font-size: .8rem;
+      color: var(--ink2);
+      line-height: 1.7;
+      max-width: 580px;
+    }
+    .process-note::before {
+      content: '';
+      display: block; width: 40px; height: 1px;
+      background: var(--gold-grad);
+      margin: 0 auto 1.2rem;
+    }
+
     #process { background: var(--bg-soft); }
 
     /* ── PRICING ── */
@@ -597,25 +648,31 @@
       display: flex; flex-direction: column; transition: var(--tr);
       position: relative; overflow: hidden;
     }
-    .price-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: var(--gold-grad); opacity: 0; transition: var(--tr);
-    }
     .price-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-    .price-card:hover::before { opacity: 1; }
     .price-card.featured {
-      background: var(--ink); border-color: var(--ink);
-      padding-top: 2.8rem;
+      background: transparent; border: none;
+      padding: 0; overflow: visible;
+    }
+    .price-card.featured .price-card-inner {
+      background: var(--ink); border: 1.5px solid var(--ink);
+      border-radius: 24px; overflow: hidden;
+      padding: 1.6rem 2rem 2.4rem;
+      display: flex; flex-direction: column;
+      position: relative;
       box-shadow: 0 0 0 1px rgba(184,146,74,.35), 0 30px 80px rgba(28,25,32,.18);
     }
-    .price-card.featured::before { opacity: 1; background: var(--gold-grad); }
+    .price-card.featured .price-card-inner::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--gold-grad);
+    }
     .featured-badge {
-      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      display: inline-flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem;
       background: var(--gold-grad);
       background-size: 200%; animation: goldShimmer 3s linear infinite;
       color: var(--white); font-size: .6rem; font-weight: 700;
       letter-spacing: .12em; text-transform: uppercase;
-      padding: .28rem 1rem; border-radius: 999px; white-space: nowrap;
+      padding: .3rem 1.1rem; border-radius: 999px; white-space: nowrap;
       box-shadow: 0 6px 18px rgba(184,146,74,.4);
     }
     @keyframes goldShimmer { 0%{background-position:0%} 100%{background-position:200%} }
@@ -672,6 +729,27 @@
       box-shadow: 0 10px 32px rgba(184,146,74,.45);
       transform: translateY(-2px);
     }
+
+    /* ── EXTRAS OPCIONALES ── */
+    .extras-item {
+      display: flex; align-items: flex-start; gap: .9rem;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.1rem 1.2rem;
+      transition: var(--tr);
+    }
+    .extras-item:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow);
+      border-color: rgba(184,146,74,.4);
+    }
+    .extras-icon {
+      width: 38px; height: 38px; border-radius: 12px; flex-shrink: 0;
+      background: var(--champ-lt); color: var(--champ-dk);
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--tr);
+    }
+    .extras-item:hover .extras-icon { background: var(--gold-grad); color: var(--white); }
+    .extras-title { font-weight: 600; font-size: .88rem; color: var(--ink); }
+    .extras-desc { font-size: .78rem; color: var(--ink2); margin-top: .15rem; line-height: 1.5; }
 
     /* ── CTA BANNER ── */
     #cta {
@@ -760,6 +838,21 @@
       color: var(--white); transform: translateY(-3px);
       box-shadow: 0 8px 24px rgba(0,0,0,.25);
     }
+    .social-icon-link.social-ig:hover svg { stroke: url(#ig-gradient); }
+    .social-icon-link.social-ig:hover {
+      border-color: #E1306C;
+      box-shadow: 0 8px 24px rgba(225,48,108,.2);
+    }
+    .social-icon-link.social-tt:hover svg { fill: #69C9D0; }
+    .social-icon-link.social-tt:hover {
+      border-color: #69C9D0;
+      box-shadow: 0 8px 24px rgba(105,201,208,.2);
+    }
+    .social-icon-link.social-fb:hover svg { fill: #1877F2; }
+    .social-icon-link.social-fb:hover {
+      border-color: #1877F2;
+      box-shadow: 0 8px 24px rgba(24,119,242,.2);
+    }
     .social-icon-link svg { flex-shrink: 0; width: 20px; height: 20px; }
     .social-icon-link span { font-size: .84rem; font-weight: 600; }
 
@@ -803,7 +896,7 @@
         width: 150vw;
         right: -70vw;
         top: 5%;
-        opacity: 0.6;
+        opacity: 0.4;
       }
     }
     @media (max-width: 700px) {
@@ -827,6 +920,7 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
       .reveal { opacity: 1; transform: none; }
+      .ticker-track { animation: scrollLeft 14s linear infinite !important; }
     }
   </style>
 </head>
@@ -938,15 +1032,25 @@
           <div class="invite-preview-names">Andrea <em>&</em> Mateo</div>
           <div class="invite-preview-date">14 · Febrero · 2026 · San Salvador</div>
         </div>
-        <div class="invite-chips">
-          <span class="invite-chip">⏳ Cuenta regresiva</span>
-          <span class="invite-chip">📍 Mapa</span>
-          <span class="invite-chip">✅ RSVP</span>
-          <span class="invite-chip">🗓️ Guardar fecha</span>
-          <span class="invite-chip">👗 Dress code</span>
-          <span class="invite-chip">💐 Corte de honor</span>
-          <span class="invite-chip">🤝 Padrinos</span>
-          <span class="invite-chip">📸 Galería</span>
+        <div class="ticker-wrapper">
+          <div class="ticker-track">
+            <button class="ticker-btn">⏳ Cuenta regresiva</button>
+            <button class="ticker-btn">📍 Mapa</button>
+            <button class="ticker-btn">✅ RSVP</button>
+            <button class="ticker-btn">🗓️ Guardar fecha</button>
+            <button class="ticker-btn">👗 Dress code</button>
+            <button class="ticker-btn">💐 Corte de honor</button>
+            <button class="ticker-btn">🤝 Padrinos</button>
+            <button class="ticker-btn">📸 Galería</button>
+            <button class="ticker-btn">⏳ Cuenta regresiva</button>
+            <button class="ticker-btn">📍 Mapa</button>
+            <button class="ticker-btn">✅ RSVP</button>
+            <button class="ticker-btn">🗓️ Guardar fecha</button>
+            <button class="ticker-btn">👗 Dress code</button>
+            <button class="ticker-btn">💐 Corte de honor</button>
+            <button class="ticker-btn">🤝 Padrinos</button>
+            <button class="ticker-btn">📸 Galería</button>
+          </div>
         </div>
       </div>
       <div class="includes-list">
@@ -1048,7 +1152,7 @@
   <div class="section-wrap">
     <div class="section-head reveal" style="text-align:center;">
       <span class="section-eyebrow">Cómo funciona</span>
-      <h2>Lista en <em>48 horas</em></h2>
+      <h2>Lista en <em>48 horas*</em></h2>
       <p class="section-sub" style="margin:0 auto;">Un proceso simple para que solo te preocupes de disfrutar tu gran día.</p>
     </div>
     <div class="process-steps">
@@ -1073,6 +1177,7 @@
         <p class="step-desc">Un link listo para enviar por WhatsApp, Instagram o correo. Sus invitados lo reciben al instante.</p>
       </div>
     </div>
+    <p class="process-note">* La primera versión de tu invitación es entregada en menos de 48 horas después de completar el pago. Ajustes y modificaciones están sujetas a 24 h por modificación o conjunto de modificaciones.</p>
   </div>
 </section>
 
@@ -1101,35 +1206,75 @@
           <li><span class="feat-check">✓</span> Mapa de ubicación</li>
           <li><span class="feat-check">✓</span> Guardar en calendario</li>
           <li><span class="feat-check">✓</span> Dress code</li>
-          <li><span class="feat-check">✓</span> 2 revisiones incluidas</li>
-          <li><span class="feat-check">✓</span> Entrega en 48 horas</li>
+          <li><span class="feat-check">✓</span> Revisiones ilimitadas</li>
+          <li><span class="feat-check">✓</span> Entrega en 48 horas*</li>
         </ul>
         <button class="price-btn price-btn-default" onclick="handleWhatsApp('Esencial')">Quiero este plan</button>
       </div>
 
       <!-- PREMIUM -->
       <div class="price-card featured reveal">
-        <span class="featured-badge">✦ Más completo</span>
-        <p class="price-tier">Plan Premium</p>
-        <div class="price-amount">
-          <span class="price-num">$55</span>
-          <span class="price-per">/ invitación</span>
+        <div class="price-card-inner">
+          <span class="featured-badge">✦ Más completo</span>
+          <p class="price-tier">Plan Premium</p>
+          <div class="price-amount">
+            <span class="price-num">$55</span>
+            <span class="price-per">/ invitación</span>
+          </div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="feat-check">✓</span> Todo lo del plan Esencial</li>
+            <li><span class="feat-check">✓</span> Galería de fotos animada</li>
+            <li><span class="feat-check">✓</span> Corte de honor con fotos</li>
+            <li><span class="feat-check">✓</span> Sección de padrinos</li>
+            <li><span class="feat-check">✓</span> Programa del evento</li>
+            <li><span class="feat-check">✓</span> Animaciones de entrada premium</li>
+            <li><span class="feat-check">✓</span> Música de fondo opcional</li>
+          </ul>
+          <button class="price-btn price-btn-featured" onclick="handleWhatsApp('Premium')">Quiero este plan</button>
         </div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li><span class="feat-check">✓</span> Todo lo del plan Esencial</li>
-          <li><span class="feat-check">✓</span> Galería de fotos animada</li>
-          <li><span class="feat-check">✓</span> Corte de honor con fotos</li>
-          <li><span class="feat-check">✓</span> Sección de padrinos</li>
-          <li><span class="feat-check">✓</span> Programa del evento</li>
-          <li><span class="feat-check">✓</span> Animaciones de entrada premium</li>
-          <li><span class="feat-check">✓</span> Música de fondo opcional</li>
-          <li><span class="feat-check">✓</span> Revisiones ilimitadas</li>
-        </ul>
-        <button class="price-btn price-btn-featured" onclick="handleWhatsApp('Premium')">Quiero este plan</button>
       </div>
 
     </div>
+
+    <!-- EXTRAS OPCIONALES -->
+    <div class="reveal" style="margin-top:3.5rem;">
+      <div style="text-align:center; margin-bottom:1.8rem;">
+        <span class="section-eyebrow">Complementos</span>
+        <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.3rem,2.5vw,1.9rem); font-weight:400; letter-spacing:-.01em; margin-top:.4rem;">Extras <em style="color:var(--champ); font-style:italic;">Opcionales</em></h3>
+        <p style="color:var(--ink2); font-size:.9rem; margin-top:.5rem; line-height:1.6;">Agrega funciones adicionales a cualquier plan cuando lo desees.</p>
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:1rem;">
+        <div class="extras-item">
+          <div class="extras-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div>
+            <p class="extras-title">Dominio personalizado</p>
+            <p class="extras-desc">Ej: www.bodacarlosyana.com</p>
+          </div>
+        </div>
+        <div class="extras-item">
+          <div class="extras-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <div>
+            <p class="extras-title">Video de bienvenida</p>
+            <p class="extras-desc">Un toque personal al abrir la invitación</p>
+          </div>
+        </div>
+        <div class="extras-item" style="opacity:.75;">
+          <div class="extras-icon" style="background:var(--bg-warm);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <p class="extras-title">Asistente IA del evento <span style="font-size:.6rem; background:var(--champ-lt); color:var(--champ-dk); padding:.1rem .45rem; border-radius:999px; font-weight:700; vertical-align:middle; margin-left:.3rem;">Próximamente</span></p>
+            <p class="extras-desc">Responde preguntas de los invitados automáticamente</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <p style="text-align:center; margin-top:1.8rem; font-size:.82rem; color:var(--ink2);">
       ¿Tienes algo especial en mente? <a href="#cta" style="color:var(--champ-dk); font-weight:600; text-decoration:none;" onclick="handleWhatsApp()">Consúltanos por WhatsApp →</a>
     </p>
@@ -1152,7 +1297,7 @@
 <footer>
   <div class="footer-top">
     <span class="footer-logo">Charléa <span class="footer-logo-sub">Weddings</span></span>
-    <p>© 2026 Charléa — Invitaciones digitales con alma</p>
+    <p>Your moment. Your Story — Charlea 2026 ©</p>
   </div>
   <div class="footer-social-section">
     <span class="footer-social-label">Síguenos en redes</span>
