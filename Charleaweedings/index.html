@@ -165,10 +165,25 @@
       text-align: center;
       padding: 10rem 6% 7rem;
       position: relative; overflow: hidden;
+      isolation: isolate;
       background:
         radial-gradient(ellipse 90% 65% at 50% -8%, rgba(184,146,74,.09), transparent 65%),
         radial-gradient(ellipse 60% 45% at 88% 78%, rgba(212,176,122,.07), transparent 70%),
         radial-gradient(ellipse 60% 45% at 8% 82%, rgba(212,176,122,.06), transparent 70%);
+    }
+
+    /* Sello de cera — derecha del hero, mitad visible, por debajo de las letras */
+    .hero-seal {
+      position: absolute;
+      top: 50%; right: 0;
+      transform: translate(50%, -50%);
+      width: clamp(220px, 28vw, 400px);
+      height: auto;
+      z-index: -1;
+      opacity: .95;
+      filter: drop-shadow(0 24px 48px rgba(28,25,32,.14));
+      pointer-events: none;
+      user-select: none;
     }
 
     /* Pétalos flotantes decorativos */
@@ -787,6 +802,7 @@
       .demos-grid { grid-template-columns: 1fr; }
       h1 { font-size: 2.8rem; }
       .section-wrap { padding: 5rem 6%; }
+      .hero-seal { width: clamp(150px, 38vw, 230px); opacity: .85; }
     }
     @media (max-width: 480px) {
       .hero-btns .btn-primary, .hero-btns .btn-ghost { width: 100%; justify-content: center; }
@@ -828,6 +844,7 @@
 
 <!-- HERO -->
 <section id="hero">
+  <img class="hero-seal" src="SELLO LILA.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
   <div class="hero-petals" aria-hidden="true">
     <span class="petal"></span><span class="petal"></span><span class="petal"></span><span class="petal"></span>
     <span class="petal"></span><span class="petal"></span><span class="petal"></span><span class="petal"></span>
