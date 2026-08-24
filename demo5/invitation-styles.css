@@ -1,0 +1,82 @@
+/* ─── RESET & BASE ───────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── CONTAINER ─────────────────────────────────── */
+.invitation-container {
+  --max-w: 414px;
+  --vh: 896px;
+
+  width: 100%;
+  max-width: var(--max-w);
+  min-height: 100vh;
+  min-height: 100dvh; /* dynamic viewport for mobile browsers */
+  background: #F0EBE3; /* beige claro / hueso */
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 48px 24px 64px;
+}
+
+/* ─── DISCO BALL ─────────────────────────────────── */
+.disco-ball {
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  width: 110px;
+  height: auto;
+  transform: rotate(-8deg);
+  animation: sway 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* ─── SAVE THE DATE ──────────────────────────────── */
+.save-the-date {
+  width: 80%;
+  max-width: 330px;
+  height: auto;
+  transform: rotate(-5deg);
+  z-index: 2;
+  margin: auto 0; /* empuja al centro vertical con flex */
+}
+
+/* ─── CALENDAR ───────────────────────────────────── */
+.calendar {
+  width: 90%;
+  max-width: 370px;
+  height: auto;
+  transform: rotate(-5deg);
+  z-index: 2;
+  margin-bottom: 0; /* anclado abajo por flex column + justify-content:center + gap */
+}
+
+/* ─── ANIMATIONS ─────────────────────────────────── */
+@keyframes sway {
+  0%, 100% { transform: rotate(-8deg); }
+  50%      { transform: rotate(8deg); }
+}
+
+/* ─── REDUCED MOTION ─────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .disco-ball { animation: none; transform: rotate(-8deg); }
+}
+
+/* ─── RESPONSIVE TWEAKS ──────────────────────────── */
+@media (max-width: 380px) {
+  .invitation-container {
+    padding: 32px 16px 48px;
+    gap: 16px;
+  }
+  .disco-ball { width: 90px; top: 20px; left: 16px; }
+  .save-the-date { width: 85%; }
+  .calendar { width: 95%; }
+}
